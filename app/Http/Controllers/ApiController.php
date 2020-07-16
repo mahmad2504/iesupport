@@ -15,10 +15,6 @@ class ApiController extends Controller
     {
 		date_default_timezone_set("Asia/Karachi");
     }
-	public function Index(Request $request)
-	{
-		return view('welcome');
-	}
 	
 	public function GetGraphData($project,$components,$issuetypes,$start,$end)
 	{
@@ -137,7 +133,7 @@ class ApiController extends Controller
 		
 		return $graphdata;
 	}
-	public function BurnUp(Request $request)
+	public function Index(Request $request)
 	{
 		$end  = CDate();
 		$start  = CDate();

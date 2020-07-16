@@ -17,6 +17,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/burnup', 'ApiController@burnup')->name('index'); 
-Route::get('/', 'ApiController@index')->name('main');
+Route::get('/', 'ApiController@index')->name('index'); 
 Route::get('/data/{product}', 'ApiController@data')->name('data');
