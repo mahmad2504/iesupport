@@ -19,3 +19,4 @@ Route::get('/', function () {
 
 Route::get('/burnup', 'ApiController@burnup')->name('index'); 
 Route::get('/', 'ApiController@index')->name('main');
+Route::get('/data/{product}', 'ApiController@data')->name('data');

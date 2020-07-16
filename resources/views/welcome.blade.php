@@ -25,52 +25,71 @@
 	<hr>
 	<table style="width:100%">
 	  <tr>
-		<th><div id="graphdiv1"></div></th>
-		<th><div id="graphdiv2"></th>
+		<th>
+		<label style="float:left;margin-left:70px">VOLSUP</label>
+		<select  style="float:left;margin-left:10px" name="select1" id="select1">
+		  <option value="Volcano IVS,Volcano BL">IVS/BL</option>
+		  <option value="Volcano IVS">IVS</option>
+		  <option value="Volcano BL">BL</option>
+		</select>
+		<br>
+		<div id="graphdiv1"></div>
+		</th>
+		<th>
+		<label style="margin-left:70px;float:left;font-weight:bold;">VSTARMOD</label>
+		<select  style="float:left;margin-left:10px" name="select2" id="select2">
+		  <option value="CVBL,CVLTP">CVBL/CVLTP</option>
+		  <option value="CVBL">CVBL</option>
+		  <option value="CVLTP">CVLTP</option>
+		</select>
+	    <br>
+		<div id="graphdiv2">
+		</th>
 	  </tr>
 	  <tr>
-		<td><div id="graphdiv3"></div></td>
-		<td>Smith</td>
+		<td></td>
+	
 
 	  </tr>
 	</table>
+	<div style="width:700px;height:300px;">
+	<canvas id="myChart" ></canvas>
+	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.js"></script>
-  
+	<script src="js/dygraph.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-alpha/Chart.min.js"></script>
 	<script>
-	    var graphdata1 = @json($graphdata1);
-		var graphdata2 = @json($graphdata2);
+		var data1 = @json($graphdata1);
+		var data2 = @json($graphdata2);
+		
+	    var graphdata1 = [];
+		var graphdata2 = [];
 		var start = "{{$start}}";
 		var end = "{{$end}}";
-		
 		document.getElementById("start").defaultValue = start;
 		document.getElementById("end").defaultValue = end;
-
-		for(var i=0;i<graphdata1.length;i++)
+		
+		function Process(data)
 		{
-			graphdata1[i][0]=new Date(graphdata1[i][0]);
+			for(var i=0;i<data.length;i++)
+			{
+				data[i][0]=new Date(data[i][0]);
+			}
+			return data;
 		}
-		for(var i=0;i<graphdata2.length;i++)
+		graphdata1 = Process(data1);
+		graphdata2 = Process(data2);
+		function DrawGraph1()
 		{
-			graphdata2[i][0]=new Date(graphdata2[i][0]);
-		}
-		$(document).ready(function()
-		{
-			$( "#search" ).click(function() {
-				var url="{{ route('index') }}"+"?start="+$('#start').val()+"&end="+$('#end').val();				;
-				console.log(url);
-				window.location.href = url;
-			});
-			new Dygraph(
-              document.getElementById("graphdiv1"),
-			  graphdata1,
-			
+			var dygraph1 = new Dygraph(
+			document.getElementById("graphdiv1"),
+			graphdata1,
               {
 				//labels: [ "Date", "Created this week" ,"Total Created","Resolved this week","Total resolved","Defects resolved this week","Total defects resolved","Defects created this week","Total defects created"],
-                labels: [ "Date", "w-created","created","w-fixed","fixed","w-dfixed","dfixed","w-dcreated","dcreated"],
+                labels: [ "Date", "w-created","Created","w-fixed","Fixed","w-dfixed","Defect fixed","w-dcreated","Defect created"],
 				strokeWidth: 2,
 				includeZero : true,
-				title:"VSTARMOD",
+				title:"",
 				labelsSeparateLines: false,
                 //legend: 'always',
 				//colors: ['E69997', '#54A653', '#284785','#284785','#284785','#284785','#284785','#284785','#284785'],
@@ -82,14 +101,14 @@
 				  'w-created': {
 					   color: '#ff0000'
 				  },
-				  'created': {
+				  'Created': {
 					   fillGraph:true,
 					   color: '#ff0000',
 				  },
 				  'w-fixed': {
 					   color: '#00ff00'
 				  },
-				  'fixed': {
+				  'Fixed': {
 					   color: '#00ff00',
 					   pointSize: 0,
 					   drawPoints: true,
@@ -98,7 +117,7 @@
 				  'w-dfixed': {
 					   color: '#00ff00'
 				  },
-				  'dfixed': {
+				  'Defect fixed': {
 					   strokeWidth: 0.5,
 					   color: '#006400',
 					   pointSize: 1,
@@ -110,7 +129,7 @@
 					   color: '#00ff00'
 					   
 				  },
-				  'dcreated': {
+				  'Defect created': {
 					   strokeWidth: 0.5,
 					   pointSize: 1,
 					   drawPoints: true,
@@ -120,16 +139,19 @@
                 }
               }
 			);
-			new Dygraph(
-              document.getElementById("graphdiv2"),
+		}
+		function DrawGraph2()
+		{
+			Dygraph2 = new Dygraph(
+			  document.getElementById("graphdiv2"),
 			  graphdata2,
 			
               {
 				//labels: [ "Date", "Created this week" ,"Total Created","Resolved this week","Total resolved","Defects resolved this week","Total defects resolved","Defects created this week","Total defects created"],
-                labels: [ "Date", "w-created","created","w-fixed","fixed","w-dfixed","dfixed","w-dcreated","dcreated"],
+                labels: [ "Date", "w-created","Created","w-fixed","Fixed","w-dfixed","Defect fixed","w-dcreated","Defect created"],
 				strokeWidth: 2,
 				includeZero : true,
-				title:"VOLSUP",
+				title:"",
 				labelsSeparateLines: false,
                 //legend: 'always',
 				//colors: ['E69997', '#54A653', '#284785','#284785','#284785','#284785','#284785','#284785','#284785'],
@@ -141,21 +163,21 @@
 				  'w-created': {
 					   color: '#ff0000'
 				  },
-				  'created': {
+				  'Created': {
 					   fillGraph:true,
 					   color: '#ff0000'
 				  },
 				  'w-fixed': {
 					   color: '#00ff00'
 				  },
-				  'fixed': {
+				  'Fixed': {
 					   color: '#00ff00',
 					   fillGraph:true,
 				  },
 				  'w-dfixed': {
 					   color: '#00ff00'
 				  },
-				  'dfixed': {
+				  'Defect fixed': {
 					   strokeWidth: 0.5,
 					   color: '#006400',
 					   pointSize: 1,
@@ -167,7 +189,7 @@
 					   color: '#00ff00'
 					   
 				  },
-				  'dcreated': {
+				  'Defect created': {
 					   strokeWidth: 0.5,
 					   pointSize: 1,
 					   drawPoints: true,
@@ -177,7 +199,52 @@
                 }
               }
 			);
+			
+		}
+		$(document).ready(function()
+		{
+			$( "#search" ).click(function() {
+				var url="/data/VOLSUP"+"?start="+$('#start').val()+"&end="+$('#end').val()+"&issuetypes="+$('#select1').val();
+				$.ajax({
+					url: url,
+				}).done(function(data) {
+					graphdata1 = Process(data);
+					DrawGraph1();
+				});
+				
+				var url="/data/VSTARMOD"+"?start="+$('#start').val()+"&end="+$('#end').val()+"&components="+$('#select2').val();
+				$.ajax({
+					url: url,
+				}).done(function(data) {
+					graphdata2 = Process(data);
+					DrawGraph2();
+				});
+				
+			});
+			$( "#select1" ).change(function() {
+				var url="/data/VOLSUP"+"?start="+$('#start').val()+"&end="+$('#end').val()+"&issuetypes="+$('#select1').val();
+				$.ajax({
+					url: url,
+				}).done(function(data) {
+					graphdata1 = Process(data);
+					DrawGraph1();
+				});
+			});
+			$( "#select2" ).change(function() {
+				var url="/data/VSTARMOD"+"?start="+$('#start').val()+"&end="+$('#end').val()+"&components="+$('#select2').val();
+				$.ajax({
+					url: url,
+				}).done(function(data) {
+					graphdata2 = Process(data);
+					DrawGraph2();
+				});
+			});
+			
+			DrawGraph1();
+			DrawGraph2();
+           
 		});
+	
 	</script>
     </body>
 </html>

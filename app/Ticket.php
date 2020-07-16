@@ -30,6 +30,9 @@ class Ticket
 				{
 					
 				}
+				else if(is_array($this->$field))
+				{
+				}
 				else if(strtotime($this->$field)!=false)
 				{
 					
@@ -95,6 +98,21 @@ class Ticket
 	{
 		switch($prop)
 		{
+			case 'components':
+				$cstr = [];
+				if(isset($issue->fields->components))
+				{
+					
+					foreach($issue->fields->components as $component)
+					{
+						$cstr[] = $component->name;
+					}
+				}
+				if(count($cstr)==0)
+					$cstr[] = 'none';
+				//dump($cstr);
+				return $cstr;
+				break;
 			case 'project':
 				if(isset($issue->fields->project->key))
 					return $issue->fields->project->key;

@@ -40,6 +40,7 @@ function ProcessTickets($tickets)
 	for($i=0;$i<count($tickets);$i++)
 	{
 		$ticket = $tickets[$i];
+		//dump($ticket);
 		$db->Update(['key'=>$ticket->key],$ticket);
 	}
 }
