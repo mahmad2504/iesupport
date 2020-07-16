@@ -45,7 +45,8 @@ class Sync extends Command
 		$beat = $this->option('beat');
 		if((($beat%10)!=0)&& (!IsSyncRequested()))//Every ten minutes
 			return;
-			
+		file_get_contents("https://script.google.com/macros/s/AKfycbwCNrLh0BxlYtR3I9iW2Z-4RQK88Hryd4DEC03lIYLoLCce80A/exec?func=alive&device=iesd_support");
+		
 		$jql = env('SEED_QUERY');
 		$jira=new Jira();
 		$updated = null;
