@@ -34,7 +34,7 @@ class Jira
 		$issues = [];
 		$start = 0;
 		$max = 500;
-		dump($fields);
+		//dump($fields);
 		while(1)
 		{
 			$data = $issueService->search($jql,$start, $max,$fields,$expand);
@@ -45,7 +45,7 @@ class Jira
 					$ticket = new Ticket($issue);
 					$issues[] = $ticket ;
 				}
-				echo count($issues)." Found"."\n";
+				//echo count($issues)." Found"."\n";
 				return $issues;
 			}
 			foreach($data->issues as $issue)
