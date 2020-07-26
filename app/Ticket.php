@@ -167,10 +167,8 @@ class Ticket
 						return 2;
 					else if($issue->fields->priority->name == 'Major')
 						return 3;
-					else if($issue->fields->priority->name == 'Medium')
-						return 4;
 					else
-						return 5;
+						return 4;
 				}
 				break;
 			case 'transitions':
@@ -185,7 +183,11 @@ class Ticket
 							self::SetTimeZone($item->created);
 							$carbon = Carbon::instance($item->created);
 							$carbon->second = 0;
-							$transitions[] = $item;
+							$nitem=new \StdClass();
+							$nitem->created = $carbon->getTimeStamp();
+							$nitem->stateto = $item->toString;  
+							$nitem->statefrom = $item->fromString;
+							$transitions[] = $nitem;
 						}
 					}
 				}

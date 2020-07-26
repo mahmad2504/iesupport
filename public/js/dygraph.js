@@ -7001,7 +7001,6 @@ setSelection
 		if(row != this.lastRow_)
 			changed = true;
 	this.lastRow_ = row;
-	console.log(this.layout_.points.length);
 	for(var setIdx=0;setIdx < this.layout_.points.length;++setIdx) 
 	{
 		var points=this.layout_.points[setIdx]; // Check if the point at the appropriate index is the point we're looking
@@ -7015,7 +7014,7 @@ var setRow=row - this.getLeftBoundary_(setIdx);if(setRow >= 0 && setRow < points
  */Dygraph.prototype.mouseOut_ = function(event){if(this.getFunctionOption("unhighlightCallback")){this.getFunctionOption("unhighlightCallback").call(this,event);}if(this.getBooleanOption("hideOverlayOnMouseOut") && !this.lockedSet_){this.clearSelection();}}; /**
  * Clears the current selection (i.e. points that were highlighted by moving
  * the mouse over the chart).
- */Dygraph.prototype.clearSelection = function(){console.log(this.lastrow);this.setSelection(this.lastrow);return;this.cascadeEvents_('deselect',{});this.lockedSet_ = false; // Get rid of the overlay data
+ */Dygraph.prototype.clearSelection = function(){this.setSelection(this.lastrow);return;this.cascadeEvents_('deselect',{});this.lockedSet_ = false; // Get rid of the overlay data
 if(this.fadeLevel){this.animateSelection_(-1);return;}this.canvas_ctx_.clearRect(0,0,this.width_,this.height_);this.fadeLevel = 0;this.selPoints_ = [];this.lastx_ = -1;this.lastRow_ = -1;this.highlightSet_ = null;}; /**
  * Returns the number of the currently selected row. To get data for this row,
  * you can use the getValue method.

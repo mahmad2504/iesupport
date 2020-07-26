@@ -16,3 +16,5 @@
 [2020-07-15T09:58:57.356396+05:00] JiraClient.ERROR: CURL Error: http response=0, Could not resolve host: ies-iesd-jira.ies.mentorg.com [] []
 [2020-07-15T10:00:07.098896+05:00] JiraClient.ERROR: CURL Error: http response=0, Could not resolve host: ies-iesd-jira.ies.mentorg.com [] []
 [2020-07-15T10:00:48.846100+05:00] JiraClient.ERROR: CURL Error: http response=0, Could not resolve host: ies-iesd-jira.ies.mentorg.com [] []
+[2020-07-26T12:19:38.505442+05:00] JiraClient.ERROR: CURL Error: http response=0, Failed to connect to ies-iesd-jira.ies.mentorg.com port 8080: Connection refused [] []
+[2020-07-26T12:31:00.046754+05:00] JiraClient.ERROR: CURL Error: http response=0, Failed to connect to ies-iesd-jira.ies.mentorg.com port 8080: Connection refused [] []
